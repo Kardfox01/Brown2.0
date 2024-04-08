@@ -1,6 +1,7 @@
-import parameters as ps
 from particle import Particle
 from time import sleep, time
+
+import parameters as ps
 import numpy as np
 
 
@@ -9,7 +10,7 @@ class Engine:
         self.__particles: list[Particle] = []
         self.__pause = False
 
-        self.k = 2
+        self.k = 1
 
 
     def act(self, screen, draw):
@@ -46,8 +47,8 @@ class Engine:
 
                     M = m1 + m2
 
-                    particle.velocity = v1 - 2*m2 / M * np.dot(v1 - v2, p1 - p2) / square_distance * (p1 - p2)
-                    another.velocity  = v2 - 2*m1 / M * np.dot(v2 - v1, p2 - p1) / square_distance * (p2 - p1)
+                    particle.velocity = self.k * (v1 - 2*m2 / M * np.dot(v1 - v2, p1 - p2) / square_distance * (p1 - p2))
+                    another.velocity  = self.k * (v2 - 2*m1 / M * np.dot(v2 - v1, p2 - p1) / square_distance * (p2 - p1))
 
                     distance = np.sqrt(square_distance)
                     direction = (particle.position - another.position) / distance
@@ -138,7 +139,7 @@ class Engine:
             particle.show = True
             particle.trajectory.clear()
         self.__pause = False
-        self.k = 2
+        self.k = 1
 
 
     def collapse(self):

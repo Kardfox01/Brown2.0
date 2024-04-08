@@ -1,13 +1,12 @@
-from os import environ, system
-environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
-
-import pygame as pg
-
+from engine import*
 from threading import Thread
 from random import randint, choice
 from colorama import Fore, Style, just_fix_windows_console
 
-from engine import*
+from os import environ, system
+environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
+
+import pygame as pg
 
 
 class Brownian:

@@ -1,5 +1,5 @@
 from parameters import RADIUS, MASS, COLOR
-from numpy import array, sqrt
+from numpy import array
 
 
 class Particle:
