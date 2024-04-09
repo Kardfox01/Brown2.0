@@ -119,12 +119,17 @@ class Brownian:
         {Fore.CYAN}окружение{Fore.WHITE} {Fore.GREEN}N{Fore.WHITE}                     - создать {Fore.GREEN}N{Fore.WHITE} невидимых частиц с параметрами по-умолчанию
         {Fore.CYAN}очистить{Fore.WHITE}                        - удаляет все частицы
         {Fore.CYAN}кол-во{Fore.WHITE}                          - выводит кол-во частиц на экране
-        {Fore.CYAN}выделить{Fore.WHITE} {Fore.GREEN}UIDS{Fore.WHITE}                   - прячет все частицы, кроме {Fore.GREEN}UISD{Fore.WHITE}
+        {Fore.CYAN}выделить{Fore.WHITE} {Fore.GREEN}UID{Fore.WHITE}                    - прячет все частицы, кроме {Fore.GREEN}UID{Fore.WHITE}
         {Fore.CYAN}следить{Fore.WHITE} {Fore.GREEN}T UID{Fore.WHITE}                   - рисует траекторию {Fore.GREEN}UID {Fore.WHITE} частицы {Fore.GREEN}T{Fore.WHITE} cекунд
         {Fore.CYAN}стоп{Fore.WHITE}                            - останавливает движение
         {Fore.CYAN}выход{Fore.WHITE}                           - выход из приложения
         {Fore.CYAN}сброс{Fore.WHITE}                           - сбрасывает изменения после {Fore.CYAN}выделить{Fore.WHITE}, {Fore.CYAN}следить{Fore.WHITE} или {Fore.CYAN}пластилин{Fore.WHITE}
         {Fore.CYAN}помощь{Fore.WHITE}                          - вывод справки\n"""
+
+        PARAMS = f"""\nПараметры:\n
+        {Fore.GREEN}СКОРОСТЬ{Fore.WHITE} = {ps.V}
+        {Fore.GREEN}МАССА{Fore.WHITE}    = {ps.MASS}
+        {Fore.GREEN}РАДИУС{Fore.WHITE}   = {ps.RADIUS}\n"""
 
         PROMT = f"{Style.NORMAL}{Fore.CYAN}>>> {Fore.RESET}{Style.BRIGHT}"
 
@@ -143,7 +148,7 @@ class Brownian:
                 "помощь"   : lambda: HELP
             }
 
-            print(f"{Style.BRIGHT}Добро пожаловать в утилиту BrownianEngine!\n{HELP}{Fore.RESET}")
+            print(f"{Style.BRIGHT}Добро пожаловать в утилиту BrownianEngine!\n{HELP}{PARAMS}{Fore.RESET}")
 
             while self.__work:
                 promt = input(PROMT).lower().split()
@@ -156,13 +161,12 @@ class Brownian:
                                 print(result)
                         else:
                             print(f"{Fore.RED}Команда не существует{Fore.WHITE}")
-                    
                 except IndexError:
                     print(f"{Fore.RED}Частицы с таким {Fore.GREEN}UID{Fore.RED} не существует{Fore.WHITE}")
                 except KeyError:
                     print(f"{Fore.RED}Такого цвета нет, но вы можете добавить его в {Fore.CYAN}parameters.py{Fore.WHITE}")
-                # except Exception as e:
-                #     print("Упс!", Fore.RED, e., Fore.WHITE)
+                except Exception as e:
+                    print("Упс!", Fore.RED, e, Fore.WHITE)
             print(f"Выход...{Style.RESET_ALL}")
             return
 

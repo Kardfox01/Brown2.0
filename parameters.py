@@ -20,12 +20,12 @@ CAPTION = "Brownian Engine"
 WIDTH   = 700
 HEIGHT  = 600
 ICON    = "icon.ico"
-FILL    = COLOR_ALIASES["черный"]
+FILL    = COLOR_ALIASES["белый"]
 
 # Физика
-V      = 5
+V      = 8
 MASS   = 10
-RADIUS = 10
+RADIUS = 15
 
 # Частицы
-COLOR = COLOR_ALIASES["cool_blue"]
+COLOR = COLOR_ALIASES["черный"]
