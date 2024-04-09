@@ -41,18 +41,18 @@ class Engine:
                     m1, v1, p1 = particle.mass, particle.velocity, particle.position
                     m2, v2, p2 = another.mass,  another.velocity, another.position
 
-                    square_distance = diff[0]**2 + diff[1]**2
-                    if square_distance <= 0:
+                    square_norm = diff[0]**2 + diff[1]**2
+                    if square_norm <= 0:
                         continue
 
                     M = m1 + m2
 
-                    particle.velocity = self.k * (v1 - 2*m2 / M * np.dot(v1 - v2, p1 - p2) / square_distance * (p1 - p2))
-                    another.velocity  = self.k * (v2 - 2*m1 / M * np.dot(v2 - v1, p2 - p1) / square_distance * (p2 - p1))
+                    particle.velocity = self.k * (v1 - 2*m2 / M * np.dot(v1 - v2, p1 - p2) / square_norm * (p1 - p2))
+                    another.velocity  = self.k * (v2 - 2*m1 / M * np.dot(v2 - v1, p2 - p1) / square_norm * (p2 - p1))
 
-                    distance = np.sqrt(square_distance)
-                    direction = (particle.position - another.position) / distance
-                    shift = direction * (particle.radius + another.radius - distance)
+                    norm = np.sqrt(square_norm)
+                    direction = (particle.position - another.position) / norm
+                    shift = direction * (particle.radius + another.radius - norm)
 
                     particle.position += shift
                     another.position  -= shift
@@ -119,7 +119,7 @@ class Engine:
             )
 
             start_position = tuple(particle.position)
-            sleep(.05)
+            sleep(.07)
 
             particle.trajectory.append(
                 (

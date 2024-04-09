@@ -12,15 +12,15 @@ COLOR_ALIASES = {
     "фиолетовый": (255, 0, 255),
     "чёрный":     (0, 0, 0),
     "черный":     (0, 0, 0),
-    "cool_blue":  (65, 214, 255)
+    "cool_blue":  (181, 239, 255)
 }
 
 # Окно
 CAPTION = "Brownian Engine"
-WIDTH   = 500
-HEIGHT  = 500
+WIDTH   = 700
+HEIGHT  = 600
 ICON    = "icon.ico"
-FILL    = COLOR_ALIASES["чёрный"]
+FILL    = COLOR_ALIASES["черный"]
 
 # Физика
 V      = 5

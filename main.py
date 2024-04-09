@@ -106,8 +106,7 @@ class Brownian:
 
 
     def clay(self):
-        self.__engine.k = .2
-
+        self.__engine.k = 0
 
     def exit(self):
         self.__work = False
