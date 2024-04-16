@@ -14,17 +14,18 @@ class Engine:
 
 
     def act(self, screen, draw):
+        w, h = screen.get_size()
         for particle in self.__particles:
             if (
                 particle.position[0] - particle.radius < 0        and particle.velocity[0] < 0 or
-                particle.position[0] + particle.radius > ps.WIDTH and particle.velocity[0] > 0
+                particle.position[0] + particle.radius > w and particle.velocity[0] > 0
             ):
                 particle.velocity[0] *= -1
                 particle.collided = True
 
             if (
                 particle.position[1] - particle.radius < 0         and particle.velocity[1] < 0 or
-                particle.position[1] + particle.radius > ps.HEIGHT and particle.velocity[1] > 0
+                particle.position[1] + particle.radius > h and particle.velocity[1] > 0
             ):
                 particle.velocity[1] *= -1
                 particle.collided = True
@@ -154,26 +155,3 @@ class Engine:
     def count(self):
         return len(self.__particles)
 
-
-# if __name__ == "__main__":
-#     engine = Engine()
-#     radius, m, r, g, b = ps.RADIUS, ps.MASS, *ps.COLOR
-#     V = [i for i in range(ps.V - 2, ps.V + 1)]
-#     for _ in range(200):
-#         engine.create(Particle(
-#             engine.count,
-#             (
-#                 randint(radius, ps.WIDTH - radius*2),
-#                 randint(radius, ps.HEIGHT - radius*2)
-#             ),
-#             (
-#                 choice((-1, 1)) * choice(V),
-#                 choice((-1, 1)) * choice(V),
-#             ),
-#             radius,
-#             m,
-#             (r, g, b)
-#         ))
-
-#     for _ in range(100):
-#         engine.act(None, None)

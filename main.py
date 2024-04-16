@@ -11,11 +11,11 @@ import pygame as pg
 
 class Brownian:
     def __init__(self):
-        self.__work  = True
-        self.__cli   = False
+        self.__work = True
+        self.__cli  = False
 
         pg.init()
-        pg.event.set_allowed((pg.QUIT, pg.VIDEORESIZE))
+        pg.event.set_allowed((pg.QUIT, pg.VIDEORESIZE, pg.KEYDOWN))
 
         self.__screen = pg.display.set_mode((ps.WIDTH, ps.HEIGHT), pg.RESIZABLE | pg.DOUBLEBUF | pg.HWSURFACE)
         self.__screen.set_alpha(None)
@@ -38,8 +38,13 @@ class Brownian:
                 if event.type == pg.QUIT and not self.__cli:
                     self.exit()
                 elif event.type == pg.VIDEORESIZE:
-                    ps.WIDTH, ps.HEIGHT = event.w, event.h
-                    self.__screen = pg.display.set_mode((ps.WIDTH, ps.HEIGHT), pg.RESIZABLE)
+                    pg.display.set_mode((event.w, event.h), pg.RESIZABLE | pg.DOUBLEBUF | pg.HWSURFACE)
+                elif event.type == pg.KEYDOWN:
+                    if event.key == pg.K_F11:
+                        if self.__screen.get_flags() & pg.FULLSCREEN:
+                            pg.display.set_mode((ps.WIDTH, ps.HEIGHT), pg.RESIZABLE | pg.DOUBLEBUF | pg.HWSURFACE)
+                        else:
+                            self.fullscreen()
 
             self.__engine.act(self.__screen, pg.draw)
 
@@ -58,12 +63,13 @@ class Brownian:
             r, g, b = ps.COLOR_ALIASES[args[4]]
 
         V = [i for i in range(ps.V - 2, ps.V + 1)]
+        w, h = self.__screen.get_size()
         for _ in range(N):
             self.__engine.create(Particle(
                 self.__engine.count,
                 (
-                    randint(radius, ps.WIDTH - radius*2),
-                    randint(radius, ps.HEIGHT - radius*2)
+                    randint(radius, w - radius*2),
+                    randint(radius, h - radius*2)
                 ),
                 (
                     choice((-1, 1)) * choice(V) if dx is None else dx,
@@ -81,12 +87,13 @@ class Brownian:
     def environment(self, N):
         N = int(N)
         V = [i for i in range(ps.V - 2, ps.V + 1)]
+        w, h = self.__screen.get_size()
         for _ in range(N):
             self.__engine.create(Particle(
                 self.__engine.count,
                 (
-                    randint(ps.RADIUS, ps.WIDTH - ps.RADIUS*2),
-                    randint(ps.RADIUS, ps.HEIGHT - ps.RADIUS*2),
+                    randint(ps.RADIUS, w - ps.RADIUS*2),
+                    randint(ps.RADIUS, h - ps.RADIUS*2),
                 ),
                 (
                     choice((-1, 1)) * choice(V),
@@ -108,6 +115,11 @@ class Brownian:
     def clay(self):
         self.__engine.k = 0
 
+
+    def fullscreen(self):
+        pg.display.set_mode((0, 0), pg.FULLSCREEN | pg.DOUBLEBUF | pg.HWSURFACE)
+
+
     def exit(self):
         self.__work = False
 
@@ -124,6 +136,7 @@ class Brownian:
         {Fore.CYAN}стоп{Fore.WHITE}                            - останавливает движение
         {Fore.CYAN}выход{Fore.WHITE}                           - выход из приложения
         {Fore.CYAN}сброс{Fore.WHITE}                           - сбрасывает изменения после {Fore.CYAN}выделить{Fore.WHITE}, {Fore.CYAN}следить{Fore.WHITE} или {Fore.CYAN}пластилин{Fore.WHITE}
+        {Fore.CYAN}экран{Fore.WHITE}                           - включает полноэкранный режим приложения
         {Fore.CYAN}помощь{Fore.WHITE}                          - вывод справки\n"""
 
         PARAMS = f"""\nПараметры:\n

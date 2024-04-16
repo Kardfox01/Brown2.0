@@ -23,7 +23,7 @@ ICON    = "icon.ico"
 FILL    = COLOR_ALIASES["белый"]
 
 # Физика
-V      = 8
+V      = 5
 MASS   = 10
 RADIUS = 15
 
