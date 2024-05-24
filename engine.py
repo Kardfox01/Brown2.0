@@ -17,14 +17,14 @@ class Engine:
         w, h = screen.get_size()
         for particle in self.__particles:
             if (
-                particle.position[0] - particle.radius < 0        and particle.velocity[0] < 0 or
+                particle.position[0] - particle.radius < 0 and particle.velocity[0] < 0 or
                 particle.position[0] + particle.radius > w and particle.velocity[0] > 0
             ):
                 particle.velocity[0] *= -1
                 particle.collided = True
 
             if (
-                particle.position[1] - particle.radius < 0         and particle.velocity[1] < 0 or
+                particle.position[1] - particle.radius < 0 and particle.velocity[1] < 0 or
                 particle.position[1] + particle.radius > h and particle.velocity[1] > 0
             ):
                 particle.velocity[1] *= -1
